@@ -85,6 +85,57 @@ describe("Launches API", () => {
       });
     });
   });
+
+  describe("Test DELETE /launches/:id", () => {
+    test("It should catch aborting a launch that doesn't exist", async () => {
+      const response = await request(app)
+        .delete("/v1/launches/999999")
+        .expect("Content-Type", /json/)
+        .expect(404);
+      expect(response.body).toStrictEqual({
+        error: "Launch not found",
+      });
+    });
+
+    test("It should successfully abort an existing custom launch", async () => {
+      // Create a test launch first
+      const newLaunch = {
+        mission: "Test Abort Mission",
+        rocket: "Test Abort Rocket",
+        target: "Kepler-62 f",
+        launchDate: "January 4, 2030",
+      };
+      
+      const createResponse = await request(app)
+        .post("/v1/launches")
+        .send(newLaunch)
+        .expect(201);
+        
+      const createdFlightNumber = createResponse.body.flightNumber;
+
+      // Now abort it
+      const abortResponse = await request(app)
+        .delete(`/v1/launches/${createdFlightNumber}`)
+        .expect("Content-Type", /json/)
+        .expect(200);
+        
+      expect(abortResponse.body).toStrictEqual({
+        ok: true,
+      });
+    });
+  });
+
+  describe("Test GET /launches/:id/details", () => {
+    test("It should return 404 for details of a launch that does not exist", async () => {
+      const response = await request(app)
+        .get("/v1/launches/999999/details")
+        .expect("Content-Type", /json/)
+        .expect(404);
+      expect(response.body).toStrictEqual({
+        error: "Launch not found",
+      });
+    });
+  });
 });
 /**
  * ----------------------------
