@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg-dark: #000000;
+  --bg-panel: rgba(0, 20, 20, 0.25);
+  --text-primary: #00f3ff;
+  --text-secondary: #008888;
+  --text-alert: #ff003c;
+  --accent-cyan: #00f3ff;
+  --accent-glow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.4);
+  --alert-glow: 0 0 10px rgba(255, 0, 60, 0.8);
+  --sci-fi-border: 1px solid var(--accent-cyan);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  /* Scanline effect via repeating gradient */
+}
+
+/* CRT Scanline Overlay */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.05) 0px,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  transform: translateZ(0);
+}
+
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: var(--accent-glow);
+  margin-bottom: 1rem;
+}
+
+p {
+  font-family: 'Share Tech Mono', monospace;
+  color: #aaeebb;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  text-shadow: var(--accent-glow);
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 0 0 20px var(--accent-cyan);
+}
+
+/* Sci-Fi Panels */
+.sci-fi-panel {
+  background: var(--bg-panel);
+  border: var(--sci-fi-border);
+  box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.2), 0 0 15px rgba(0, 243, 255, 0.3);
+  padding: 2rem;
+  position: relative;
+  /* Angled corners cut out using clip-path */
+  clip-path: polygon(
+    0 20px, 
+    20px 0, 
+    100% 0, 
+    100% calc(100% - 20px), 
+    calc(100% - 20px) 100%, 
+    0 100%
+  );
+}
+
+/* Forms & Inputs */
+input, select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: rgba(0, 40, 40, 0.5);
+  border: none;
+  border-bottom: 2px solid var(--text-secondary);
+  color: var(--accent-cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  background: rgba(0, 60, 60, 0.8);
+  border-bottom: 2px solid var(--accent-cyan);
+  box-shadow: 0 8px 10px -8px rgba(0, 243, 255, 0.5);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Futuristic Angled Button */
+.sci-fi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  background: rgba(0, 150, 150, 0.2);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.2);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.sci-fi-btn:hover:not(:disabled) {
+  background: var(--accent-cyan);
+  color: #000;
+  box-shadow: 0 0 15px var(--accent-cyan);
+  text-shadow: none;
+}
+
+.sci-fi-btn.btn-alert {
+  border-color: var(--text-alert);
+  color: var(--text-alert);
+  box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
+}
+
+.sci-fi-btn.btn-alert:hover:not(:disabled) {
+  background: var(--text-alert);
+  color: #000;
+  box-shadow: 0 0 15px var(--text-alert);
+}
+
+.sci-fi-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: #555;
+  color: #555;
+  box-shadow: none;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 136, 136, 0.3);
+}
+
+th {
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--accent-cyan);
+}
+
+tbody tr:hover {
+  background: rgba(0, 243, 255, 0.05);
+}
+
+/* Nav Link Hover Animation */
+.hud-link {
+  position: relative;
+  overflow: hidden;
+}
+.hud-link::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+  transition: all 0.3s;
+}
+.hud-link:hover::before {
+  left: 100%;
+}
+
+/* Utility Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes scanBar {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 243, 255, 0.4); }
+  50%       { box-shadow: 0 0 20px rgba(0, 243, 255, 0.9), 0 0 40px rgba(0, 243, 255, 0.4); }
+}
+
+@keyframes fade-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-slide-up {
+  animation: fade-slide-up 0.4s ease forwards;
+}
