@@ -29,10 +29,10 @@
     "nasa-project": "file:..",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "pm2": "^6.0.14"
+    "pm2": "^6.0.14",
+    "cross-env": "^10.1.0"
   },
   "devDependencies": {
-    "cross-env": "^10.1.0",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
