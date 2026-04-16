@@ -11,7 +11,7 @@ const config = {
   CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   JWT_SECRET: process.env.JWT_SECRET || "super_secret_jwt_key",
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || "super_secret_refresh_key",
-  CALLBACK_URL: "http://localhost:8000/auth/google/callback",
+  CALLBACK_URL: `${process.env.BASE_URL || "http://localhost:8001"}/auth/google/callback`,
 };
 
 // Setting up Google Strategy — only if credentials are present

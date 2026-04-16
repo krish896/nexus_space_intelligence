@@ -18,14 +18,14 @@ async function httpCallback(req, res) {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
   // the client is running on port 3000
   // we redirect them to the client root, but we need to pass the access token. 
   // It's safer to not put it in the URL. Since they will load the app, they can instantly call /auth/refresh to get an access token.
-  res.redirect("http://localhost:3000/");
+  res.redirect(`${process.env.CLIENT_URL || "http://localhost:3000"}/`);
 }
 
 async function httpRefresh(req, res) {

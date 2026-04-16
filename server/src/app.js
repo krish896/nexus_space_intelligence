@@ -13,7 +13,7 @@ const app = express();
 // to bypass same origin policy
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true, // Allow cookies
   })
 );
