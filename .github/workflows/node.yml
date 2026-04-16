@@ -1,4 +1,4 @@
-name: NASA Project CI
+name: NEXUS CI
 on:
   push:
     branches: [main]
@@ -9,24 +9,26 @@ jobs:
     env:
       CI: true
       MONGO_URL: mongodb://localhost/nasa
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       matrix:
         node-version: [22.x]
-        mongo-version: ["4.4"]
+        mongo-version: ["7.0"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js version ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version}}
-      - name: Use MongoDB from Github Actions
-        uses: supercharge/mongodb-github-action@1.6.0
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.11.0
         with:
           mongodb-version: ${{ matrix.mongo-version }}
       - run: npm install
-      - run: npm install --prefix client --include=dev
+      - run: npm install --prefix client
       - run: npm run build --prefix client
-      - run: npm install --prefix server --include=dev
+      - run: npm install --prefix server
       - run: npm test --prefix server
-      - run: npm test --prefix client -- --passWithNoTests
+      - run: npm test --prefix client -- --watchAll=false --passWithNoTests
