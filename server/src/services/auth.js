@@ -14,36 +14,40 @@ const config = {
   CALLBACK_URL: "http://localhost:8000/auth/google/callback",
 };
 
-// Setting up Google Strategy
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: config.CLIENT_ID,
-      clientSecret: config.CLIENT_SECRET,
-      callbackURL: config.CALLBACK_URL,
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        let user = await findUserByGoogleId(profile.id);
+// Setting up Google Strategy — only if credentials are present
+if (config.CLIENT_ID && config.CLIENT_SECRET) {
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: config.CLIENT_ID,
+        clientSecret: config.CLIENT_SECRET,
+        callbackURL: config.CALLBACK_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          let user = await findUserByGoogleId(profile.id);
 
-        if (!user) {
-          // Register the new user
-          const email = profile.emails[0].value;
-          const name = profile.displayName;
-          user = await createUser({
-            googleId: profile.id,
-            email,
-            name,
-          });
+          if (!user) {
+            // Register the new user
+            const email = profile.emails[0].value;
+            const name = profile.displayName;
+            user = await createUser({
+              googleId: profile.id,
+              email,
+              name,
+            });
+          }
+          
+          return done(null, user);
+        } catch (err) {
+          return done(err, false);
         }
-        
-        return done(null, user);
-      } catch (err) {
-        return done(err, false);
       }
-    }
-  )
-);
+    )
+  );
+} else {
+  console.warn("[Auth] WARNING: GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET missing — OAuth disabled.");
+}
 
 // Middleware to verify JWT tokens
 function verifyToken(req, res, next) {
