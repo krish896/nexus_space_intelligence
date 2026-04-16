@@ -13,7 +13,7 @@ const Login = () => {
     // Poll silently until the server is ready, then auto-redirect
     const pollUntilReady = async () => {
       try {
-        await fetch("http://localhost:8000/", {
+        await fetch("/", {
           method: "GET",
           signal: AbortSignal.timeout(3000),
         });

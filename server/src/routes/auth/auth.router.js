@@ -17,7 +17,7 @@ authRouter.get(
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login?failed=true",
+    failureRedirect: `${process.env.CLIENT_URL || "http://localhost:3000"}/login?failed=true`,
     session: false,
   }),
   httpCallback

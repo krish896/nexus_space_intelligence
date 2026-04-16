@@ -4,14 +4,14 @@ const jwt = require("jsonwebtoken");
 const { findUserByGoogleId, createUser } = require("../models/users.model");
 
 const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, "..", "..", ".env") });
+require("dotenv").config({ path: path.join(__dirname, "..", "..", "..", ".env") });
 
 const config = {
   CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   JWT_SECRET: process.env.JWT_SECRET || "super_secret_jwt_key",
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || "super_secret_refresh_key",
-  CALLBACK_URL: `${process.env.BASE_URL || "http://localhost:8001"}/auth/google/callback`,
+  CALLBACK_URL: `${process.env.BASE_URL || "http://localhost:8000"}/auth/google/callback`,
 };
 
 // Setting up Google Strategy — only if credentials are present

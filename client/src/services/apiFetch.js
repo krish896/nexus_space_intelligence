@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:8000/v1";
-const AUTH_URL = "http://localhost:8000/auth";
+const API_URL = "/v1";
+const AUTH_URL = "/auth";
 
 let accessToken = null;
 

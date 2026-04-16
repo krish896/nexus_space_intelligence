@@ -36,12 +36,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     // Redirect to the backend OAuth endpoint
-    window.location.href = "http://localhost:8000/auth/google";
+    window.location.href = "/auth/google";
   };
 
   const logout = async () => {
     try {
-      await fetchWithAuth('http://localhost:8000/auth/logout', { method: 'POST' });
+      await fetchWithAuth('/auth/logout', { method: 'POST' });
     } catch (e) {
       console.error(e);
     }
