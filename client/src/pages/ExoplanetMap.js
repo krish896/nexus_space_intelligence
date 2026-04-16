@@ -21,7 +21,6 @@ const ExoplanetMap = () => {
   const [isSimulatingFlight, setIsSimulatingFlight] = useState(false);
 
   const controlsRef = useRef(null);
-  const cameraRef = useRef(null);
   const cameraZoomOffset = useRef(40);
   const simSpeedRef = useRef(simSpeed);
   simSpeedRef.current = simSpeed;
@@ -33,7 +32,8 @@ const ExoplanetMap = () => {
   const gameTime = useRef(0);
 
   useEffect(() => {
-    if (!mountRef.current || planets.length === 0) return;
+    const mountNode = mountRef.current;
+    if (!mountNode || planets.length === 0) return;
 
     let targetAutoSelected = false;
 
@@ -513,11 +513,12 @@ const ExoplanetMap = () => {
       }
       document.body.style.cursor = "default";
       cancelAnimationFrame(animationId);
-      if (mountRef.current && renderer.domElement) mountRef.current.removeChild(renderer.domElement);
+      if (mountNode && renderer.domElement) mountNode.removeChild(renderer.domElement);
       renderer.dispose();
       delete window.resetGalaxyMap;
       delete window.triggerSimulate;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planets, simulateTargetParam]);
 
   const handleInitiateLaunch = () => {

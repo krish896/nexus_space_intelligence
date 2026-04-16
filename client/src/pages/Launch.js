@@ -12,6 +12,7 @@ const Launch = (props) => {
     } else if (props.planets && props.planets.length > 0 && !selectedPlanet) {
       setSelectedPlanet(props.planets[0].keplerName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.planets]);
 
   const selectorBody = useMemo(() => {
